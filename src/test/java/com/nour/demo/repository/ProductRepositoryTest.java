@@ -6,14 +6,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.nour.demo.model.Product;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Transactional(propagation = Propagation.NOT_SUPPORTED) // Prevents rollback after test
+// @Transactional(propagation = Propagation.NOT_SUPPORTED) // Prevents rollback
+// after test
 public class ProductRepositoryTest {
 
     @Autowired
@@ -48,5 +47,12 @@ public class ProductRepositoryTest {
         product.setDescription("updated description");
         // save updated entity
         productRepository.save(product);
+    }
+
+    @Test
+    void findByIdMethod() {
+        Long id = 3L;
+        Product product = productRepository.findById(id).get();
+
     }
 }
